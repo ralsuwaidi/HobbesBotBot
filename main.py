@@ -18,6 +18,8 @@ import logging
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import config
+from deen import cmd as deen_cmd
+import deen
 
 # Enable logging
 logging.basicConfig(
@@ -71,6 +73,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("gym", gym_command))
+    dispatcher.add_handler(CommandHandler("dua", deen_cmd.dua_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
