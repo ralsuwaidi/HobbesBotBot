@@ -1,4 +1,5 @@
 
+
 def get_lines(file):
     """get all list"""
 
