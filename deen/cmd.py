@@ -26,8 +26,9 @@ def timing_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
 
     city = 'Dubai'
-    if context.args[0]=='abudhabi':
-        city = 'Abu Dhabi'
+    if len(context.args) >0:
+        if context.args[0]=='abudhabi':
+            city = 'Abu Dhabi'
 
 
     params = {
