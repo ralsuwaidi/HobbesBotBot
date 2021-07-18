@@ -19,7 +19,7 @@ from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import config
 from deen import cmd as deen_cmd
-import deen
+from misc import cmd as misc_cmd
 
 # Enable logging
 logging.basicConfig(
@@ -39,14 +39,16 @@ def start(update: Update, context: CallbackContext) -> None:
         reply_markup=ForceReply(selective=True),
     )
 
+
 def gym_command(update: Update, context: CallbackContext):
     """commands related to gym"""
 
-    if context.args[0]=='1rm':
+    if context.args[0] == '1rm':
         weight = float(context.args[1])
         reps = float(context.args[2])
         oneRepMax = weight * (1+(reps/30))
         update.message.reply_text("{:.1f}".format(oneRepMax))
+
 
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
@@ -75,9 +77,11 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("gym", gym_command))
     dispatcher.add_handler(CommandHandler("dua", deen_cmd.dua_command))
     dispatcher.add_handler(CommandHandler("timing", deen_cmd.timing_command))
+    dispatcher.add_handler(CommandHandler("evil", misc_cmd.evil_command))
 
     # on non command i.e message - echo the message on Telegram
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    dispatcher.add_handler(MessageHandler(
+        Filters.text & ~Filters.command, echo))
 
     # Start the Bot
     updater.start_polling()
