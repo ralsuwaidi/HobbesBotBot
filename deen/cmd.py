@@ -5,6 +5,7 @@ import os
 import requests
 import json
 
+
 def dua_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
 
@@ -43,4 +44,5 @@ def timing_command(update: Update, context: CallbackContext) -> None:
 
     data = response.json()['data']['timings']
 
+    update.message.reply_text(f'for {city} the timings are')
     update.message.reply_text(json.dumps(data, indent=2))
