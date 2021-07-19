@@ -91,6 +91,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("gym", gym_command))
     dispatcher.add_handler(CommandHandler("dua", deen_cmd.dua_command))
     dispatcher.add_handler(CommandHandler("prayer", deen_cmd.prayer_command))
+    dispatcher.add_handler(CommandHandler("books", misc_cmd.books_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(
