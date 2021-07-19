@@ -40,6 +40,11 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
 
+def error(update: Update, context: CallbackContext) -> None:
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
+
+
 def gym_command(update: Update, context: CallbackContext):
     """commands related to gym"""
 
@@ -91,8 +96,8 @@ def main() -> None:
     dispatcher.add_handler(MessageHandler(
         Filters.text & ~Filters.command, echo))
 
-    # Start the Bot
-    updater.start_polling()
+    # error handler
+    dispatcher.add_error_handler(error)
 
     # start webhook
     updater.start_webhook(listen="0.0.0.0",
