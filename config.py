@@ -10,3 +10,5 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 HEROKU_APP_NAME = 'hobbesbotbot'
 
 PORT = os.environ.get('PORT')
+
+PRODUCTION = os.environ.get('PRODUCTION', 'FALSE')
