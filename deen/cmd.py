@@ -9,21 +9,25 @@ import json
 def dua_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
 
-    if context.args[0] == 'morning':
-        file = os.path.join(os.path.dirname(__file__),
-                            'resources/dua_morning.txt')
-        duas = utils.get_lines(file)
+    if len(context.args) > 0:
+        if context.args[0] == 'morning':
+            file = os.path.join(os.path.dirname(__file__),
+                                'resources/dua_morning.txt')
+            duas = utils.get_lines(file)
 
-        for dua in duas:
-            update.message.reply_text(dua)
+            for dua in duas:
+                update.message.reply_text(dua)
 
-    if context.args[0] == 'prayer':
-        file = os.path.join(os.path.dirname(__file__),
-                            'resources/dua_prayer.txt')
-        duas = utils.get_lines(file)
+        if context.args[0] == 'prayer':
+            file = os.path.join(os.path.dirname(__file__),
+                                'resources/dua_prayer.txt')
+            duas = utils.get_lines(file)
 
-        for dua in duas:
-            update.message.reply_text(dua)
+            for dua in duas:
+                update.message.reply_text(dua)
+
+    else:
+        update.message.reply_text("add `morning`, or `prayer` after \dua")
 
 
 def prayer_command(update: Update, context: CallbackContext) -> None:
