@@ -13,11 +13,14 @@ def scrape(search, book_format=""):
     search.replace(" ", "+")
 
     # base url used for searches
-    base_url = "http://gen.lib.rus.ec/fiction/?q={}&criteria=&language=&format={}&page=1".format(
-        search, book_format)
+
+    params = {
+        'q': search,
+        'format': book_format
+    }
 
     # parse website
-    r = requests.get(base_url)
+    r = requests.get('http://gen.lib.rus.ec/fiction/?', params=params)
 
     soup = BeautifulSoup(r.text, "html.parser")
 
@@ -40,11 +43,15 @@ def scrape(search, book_format=""):
 
     for i in range(1, number_of_pages+1):
         # base url used for searches
-        base_url = "http://gen.lib.rus.ec/fiction/?q={}&criteria=&language=&format={}&page={}".format(
-            search, book_format, i)
+
+        params = {
+            'q': search,
+            'format': book_format,
+            'page': i
+        }
 
         # parse website
-        r = requests.get(base_url)
+        r = requests.get("http://gen.lib.rus.ec/fiction/?", params=params)
         soup = BeautifulSoup(r.text, "html.parser")
         libgen_table = soup.find('table')
         table_body = libgen_table.find('tbody')
