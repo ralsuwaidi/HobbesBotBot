@@ -6,3 +6,7 @@ load_dotenv()
 
 # bot token from BotFather
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+HEROKU_APP_NAME = 'hobbesbotbot'
+
+PORT = os.environ.get('PORT')

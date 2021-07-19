@@ -61,8 +61,17 @@ def echo(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     """Start the bot."""
+
+    TOKEN = config.BOT_TOKEN
+
+    # heroku appname
+    NAME = config.HEROKU_APP_NAME
+
+    # given by heroku
+    PORT = config.PORT
+
     # Create the Updater and pass it your bot's token.
-    updater = Updater(config.BOT_TOKEN)
+    updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
@@ -77,6 +86,12 @@ def main() -> None:
 
     # Start the Bot
     updater.start_polling()
+
+    # start webhook
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN,
+                          webhook_url=f"https://{NAME}.herokuapp.com/{TOKEN}")
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
