@@ -26,7 +26,7 @@ def dua_command(update: Update, context: CallbackContext) -> None:
             update.message.reply_text(dua)
 
 
-def timing_command(update: Update, context: CallbackContext) -> None:
+def prayer_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
 
     city = 'Dubai'

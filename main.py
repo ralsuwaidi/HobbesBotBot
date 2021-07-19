@@ -85,8 +85,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("gym", gym_command))
     dispatcher.add_handler(CommandHandler("dua", deen_cmd.dua_command))
-    dispatcher.add_handler(CommandHandler("timing", deen_cmd.timing_command))
-    dispatcher.add_handler(CommandHandler("evil", misc_cmd.evil_command))
+    dispatcher.add_handler(CommandHandler("prayer", deen_cmd.prayer_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(
