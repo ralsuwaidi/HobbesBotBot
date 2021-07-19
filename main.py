@@ -99,7 +99,10 @@ def main() -> None:
     # error handler
     dispatcher.add_error_handler(error)
 
-    # start webhook
+    # for local development
+    # updater.start_polling()
+
+    # for production
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN,
