@@ -48,11 +48,15 @@ def error(update: Update, context: CallbackContext) -> None:
 def gym_command(update: Update, context: CallbackContext):
     """commands related to gym"""
 
-    if context.args[0] == '1rm':
-        weight = float(context.args[1])
-        reps = float(context.args[2])
-        oneRepMax = weight * (1+(reps/30))
-        update.message.reply_text("{:.1f}".format(oneRepMax))
+    if len(context.args) > 0:
+        if context.args[0] == '1rm':
+            weight = float(context.args[1])
+            reps = float(context.args[2])
+            oneRepMax = weight * (1+(reps/30))
+            update.message.reply_text("{:.1f}".format(oneRepMax))
+        else:
+            update.message.reply_text(
+                "please add '1rm' after \gym to get the 1rm")
 
 
 def help_command(update: Update, context: CallbackContext) -> None:

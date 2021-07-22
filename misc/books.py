@@ -1,3 +1,4 @@
+from typing import List
 import requests
 from bs4 import BeautifulSoup
 import math
@@ -6,7 +7,7 @@ from collections import namedtuple
 Book = namedtuple("Book", "Author Series Title Language File Number")
 
 
-def scrape(search, book_format=""):
+def scrape(search, book_format="") -> List[Book]:
     """get all results from search"""
 
     # replace space with + in search
@@ -26,6 +27,8 @@ def scrape(search, book_format=""):
 
     # get number of results
     number_of_results = soup.find("div", {"class": "catalog_paginator"})
+
+    # if there are no results return an empty list
     try:
         div_string = number_of_results.text.strip()
     except:
