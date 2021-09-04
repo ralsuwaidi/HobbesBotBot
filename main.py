@@ -45,31 +45,22 @@ def error(update: Update, context: CallbackContext) -> None:
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
-def gym_command(update: Update, context: CallbackContext):
-    """commands related to gym"""
-
-    if len(context.args) > 0:
-        if context.args[0] == '1rm':
-            weight = float(context.args[1])
-            reps = float(context.args[2])
-            oneRepMax = weight * (1+(reps/30))
-            update.message.reply_text("{:.1f}".format(oneRepMax))
-        else:
-            update.message.reply_text(
-                "please add '1rm' after \gym to get the 1rm")
-
-
-def help_command(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /help is issued."""
-    help_msg = """
-    Commands:
-    /gym 1rm [weight] [reps]"""
-    update.message.reply_text(help_msg)
-
-
-def echo(update: Update, context: CallbackContext) -> None:
+def cmd_manager(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    update.message.reply_text(update.message.text)
+
+    msg = update.message.text.lower().split(" ")
+
+    if msg[0] == '1rm':
+        weight = float(msg[1])
+        reps = float(msg[2])
+        oneRepMax = weight * (1+(reps/30))
+        update.message.reply_text("{:.1f}".format(oneRepMax))
+    if msg[0] == 'dua':
+        deen_cmd.dua(msg, update)
+    if msg[0] == 'prayer' or msg[0] == 'pray':
+        deen_cmd.pray(msg, update)
+    if msg[0] == 'book' or msg[0] == 'books':
+        misc_cmd.book(msg, update)
 
 
 def main() -> None:
@@ -91,15 +82,10 @@ def main() -> None:
 
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("gym", gym_command))
-    dispatcher.add_handler(CommandHandler("dua", deen_cmd.dua_command))
-    dispatcher.add_handler(CommandHandler("prayer", deen_cmd.prayer_command))
-    dispatcher.add_handler(CommandHandler("books", misc_cmd.books_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(
-        Filters.text & ~Filters.command, echo))
+        Filters.text & ~Filters.command, cmd_manager))
 
     # error handler
     dispatcher.add_error_handler(error)

@@ -1,15 +1,14 @@
 from telegram import Update
-from telegram.ext import CallbackContext
 from misc.books import scrape
 
 
-def books_command(update: Update, context: CallbackContext) -> None:
+def book(args: list, update: Update) -> None:
     """Echo the user message."""
 
     book_list = []
-    if len(context.args) > 0:
+    if len(args) > 1:
         update.message.reply_text('fetching books, this may take a while...')
-        book_list = scrape(' '.join(context.args))
+        book_list = scrape(' '.join(args[1:]))
         update.message.reply_text(f'found {len(book_list)} books')
         counter = 0
         msg = ''
