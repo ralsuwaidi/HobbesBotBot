@@ -9,7 +9,7 @@ import json
 def dua(args: list, update: Update) -> str:
     """Send a message when the command /help is issued."""
 
-    if 'morning' or 'prayer' in args:
+    if len(args) > 1:
         if args[1] == 'morning':
             file = os.path.join(os.path.dirname(__file__),
                                 'resources/dua_morning.txt')
@@ -25,9 +25,6 @@ def dua(args: list, update: Update) -> str:
 
             for dua in duas:
                 update.message.reply_text(dua)
-
-    else:
-        update.message.reply_text("add `morning`, or `prayer` after \dua")
 
 
 def pray(args: list, update: Update) -> None:
